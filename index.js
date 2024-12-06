@@ -77,7 +77,7 @@ const updates = {
   },
 };
 
-const merged = {
+const mergedObj = {
   ...profile,
   ...updates,
   address: {
@@ -86,4 +86,4 @@ const merged = {
   },
 };
 
-console.log(merged); //{ name: "Charlie", age: 30,address: { city: "San Francisco", zipcode: "94109", country: "USA"}}
+console.log(mergedObj); //{ name: "Charlie", age: 30,address: { city: "San Francisco", zipcode: "94109", country: "USA"}}
