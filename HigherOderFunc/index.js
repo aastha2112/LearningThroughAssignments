@@ -46,3 +46,38 @@ let arrOfStudents = [
 ];
 
 console.log(processStudents(arrOfStudents));
+
+//-------------------------
+
+// Question 13:
+// L1 - Grouping and Summing with reduce()
+
+let category = [
+  "electronics",
+  "clothing",
+  "electronics",
+  "toys",
+  "clothing",
+  "toys",
+  "toys",
+];
+
+let resultObj = category.reduce((acc, elm) => {
+  if (acc[elm]) {
+    acc[elm]++;
+  } else {
+    acc[elm] = 1;
+  }
+  return acc;
+}, {});
+
+console.log(resultObj); //{ electronics: 2, clothing: 2, toys: 3 }
+
+function arrayOfSortedcategories(Obj) {
+  let sortedArray = Object.entries(Obj)
+    .sort((a, b) => b[1] - a[1])
+    .map((elm) => elm[0]);
+
+  return sortedArray;
+}
+console.log(arrayOfSortedcategories(resultObj)); //[ 'toys', 'electronics', 'clothing' ]
