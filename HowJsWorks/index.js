@@ -31,3 +31,83 @@ function changeAge(newAge) {
 }
 changeAge(40);
 console.log(age); //updated value of global variable : 40
+
+//---------------------------
+
+//Question 20:
+//Question 1: Closure-Based Counter Implementation
+
+function createCounter() {
+  let count = 0;
+  return {
+    increment() {
+      count++;
+      console.log(`Current count: ${count}`);
+    },
+    decrement() {
+      count--;
+      console.log(`Current count: ${count}`);
+    },
+  };
+}
+
+let counter = createCounter();
+counter.increment(); //Current count: 1
+counter.increment(); //Current count: 2
+counter.decrement(); //Current count: 1
+
+//Encapsulation of count: The count variable is declared inside createCounter and is not directly accessible from outside. When createCounter is called, it returns an object with the methods increment, decrement, and display. These methods form closures that retain access to the count variable, even after the execution of createCounter is complete.
+let counter1 = createCounter();
+let counter2 = createCounter();
+
+console.log("if multiple counters are created using the same function");
+
+counter1.increment(); // 1
+counter1.decrement(); // 0
+counter2.decrement(); // -1
+counter2.increment(); // 0
+counter2.increment(); //1
+counter2.increment(); //2
+
+// Each closure has its own copy of the count variable, so operations on counter1 do not interfere with counter2.
+
+//-----------
+
+//Question 2: Simulating Private Variables with Closures
+
+function createBankAccount() {
+  let money = 0;
+  let transactionHistory = [];
+  return {
+    deposit(amount) {
+      money += amount;
+      transactionHistory.push({ type: "Deposit", amount });
+      console.log(`Deposited: ${amount}`);
+    },
+    withdraw(withdrawlAmount) {
+      if (withdrawlAmount > money) {
+        console.log(`Insufficient balance`);
+      } else {
+        money -= withdrawlAmount;
+        transactionHistory.push({ type: "Withdrawl", withdrawlAmount });
+
+        console.log(`Withdrawn: ${withdrawlAmount}`);
+      }
+    },
+    CheckBalance() {
+      console.log(`Current Balance is ${money}`);
+    },
+    getTransactionHistory() {
+      console.log("Transaction History:", transactionHistory);
+    },
+  };
+}
+
+const account = createBankAccount();
+account.deposit(500); //Output: Deposited: 500
+account.withdraw(200); // Output: Withdrawn: 200
+account.withdraw(400); // Output: Insufficient balance
+
+console.log(account.balance); //undefined
+account.CheckBalance(); //Current Balance is 300
+account.getTransactionHistory(); //Transaction History: [{ type: 'Deposit', amount: 500 },{ type: 'Withdrawl', withdrawlAmount: 200 }]
